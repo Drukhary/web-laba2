@@ -1,4 +1,4 @@
-package com.drukhary.laba_2;
+package drukhary.laba_2;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -23,7 +23,7 @@ public class ControllerServlet extends HttpServlet {
             resp.setCharacterEncoding("UTF-8");
             getServletContext().getRequestDispatcher("/AreaCheck").forward(req, resp);
         } else {
-            req.setAttribute("message", "Неверные данные(не отчисляйте, пожалуйста)");
+            req.setAttribute("message", "Неверные данные(примите лабу, пожалуйста)");
             getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
         }
     }

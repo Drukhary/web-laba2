@@ -1,10 +1,10 @@
-package com.drukhary.laba_2.AreaChecking;
+package drukhary.laba_2.AreaChecking;
 
 //import AreaChecking.AreaCheckingExeption.OutOfRangeException;
 //import AreaChecking.AreaCheckingExeption.WrongDataException;
 
-import com.drukhary.laba_2.AreaChecking.AreaCheckingExeption.OutOfRangeException;
-import com.drukhary.laba_2.AreaChecking.AreaCheckingExeption.WrongDataException;
+import drukhary.laba_2.AreaChecking.AreaCheckingExeption.OutOfRangeException;
+import drukhary.laba_2.AreaChecking.AreaCheckingExeption.WrongDataException;
 
 import java.time.LocalDateTime;
 
@@ -14,11 +14,11 @@ public class PointChecker {
             throws NumberFormatException, OutOfRangeException, WrongDataException {
         long start = System.nanoTime();
         if (x_0 == null)
-            throw new WrongDataException("Х не найден" + "(не отчисляйте, пожалуйста)");
+            throw new WrongDataException("Х не найден" + "(примите лабу, пожалуйста)");
         if (y_0 == null)
-            throw new WrongDataException("Y не найден" + "(не отчисляйте, пожалуйста)");
+            throw new WrongDataException("Y не найден" + "(примите лабу, пожалуйста)");
         if (r_0 == null)
-            throw new WrongDataException("R не найден" + "(не отчисляйте, пожалуйста)");
+            throw new WrongDataException("R не найден" + "(примите лабу, пожалуйста)");
         double x = Double.parseDouble(x_0);
         double y = Double.parseDouble(y_0);
 //        double r = Double.parseDouble(r_0);

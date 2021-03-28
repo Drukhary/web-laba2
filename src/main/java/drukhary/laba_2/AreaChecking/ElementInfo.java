@@ -1,8 +1,14 @@
-package com.drukhary.laba_2.AreaChecking;
+package drukhary.laba_2.AreaChecking;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ElementInfo {
+public class ElementInfo implements Serializable {
+    private static final long serialVersionUID = 2041275512219239990L;
+
+    public ElementInfo() {
+    }
+
     private Point point;
     private Double radius;
     private boolean result;
@@ -48,13 +54,4 @@ public class ElementInfo {
     public boolean isResult() {
         return result;
     }
-    //    public String getElemTableHTML(){
-//        return "<tr>"+
-//        "<td>"+data.toString()+"</td>"+
-//        "<td>"+processTime+"</td>"+
-//        "<td>"+""+"</td>"+
-//        "<td>"+" "+"</td>"+
-//        "<td>"+" "+"</td>"+
-//        "</tr>";
-//    }
 }

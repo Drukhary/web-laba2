@@ -5,10 +5,11 @@
   Time: 12:46
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Лабораторная работа №1 //Крисанов Роман</title>
+    <title>Лабораторная работа №2 //Крисанов Роман</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style>
         <%@include file="style.css"%>
@@ -64,7 +65,8 @@
         <div class="elem">
             Координата Y:
             <label>
-                <input type="text" id="coordinateY" class="coordinateY" name="Y" placeholder="1,234" required>
+                <input type="text" id="coordinateY" class="coordinateY" name="Y" placeholder="введите число от -5 до 3"
+                       required>
             </label>
         </div>
         <div class="elem">
@@ -96,26 +98,24 @@
         </tr>
         </thead>
         <tbody>
-        <%@ page import="com.drukhary.laba_2.AreaChecking.ElementInfo" %>
-        <%@ page import="java.util.ArrayList" %>
-        <%
-            Object object = config.getServletContext().getAttribute("table");
-            ArrayList<ElementInfo> arrayList;
-            if (object != null) {
-                arrayList = (ArrayList<ElementInfo>) object;
-                for (ElementInfo i :
-                        arrayList) {
-                    out.println("<tr>");
-                    out.println("<td>" + i.getData() + "</td>");
-                    out.println("<td>" + i.getProcessTime() + "</td>");
-                    out.println("<td>" + i.getPoint().getX() + "</td>");
-                    out.println("<td>" + i.getPoint().getY() + "</td>");
-                    out.println("<td>" + i.getRadius() + "</td>");
-                    out.println("<td>" + (i.isResult() ? "Точка входит в область" : "Точка не входит в область") + "</td>");
-                    out.println("</tr>");
-                }
-            }
-        %>
+        <jsp:useBean id="table" class="drukhary.laba_2.AreaChecking.Table" scope="application"/>
+        <c:forEach items="${table.data}" var="i">
+            <tr>
+                <td><c:out value="${i.data}"/></td>
+                <td>
+                    <c:set var="prosessTime" value="${i.processTime}" scope="page"/>
+                    <%= java.math.BigDecimal.valueOf((double) pageContext.findAttribute("i")).toPlainString() + "HY" %>
+                    <c:remove var="prosessTime" scope="page"/>
+                </td>
+                <td><c:out value="${i.point.x}"/></td>
+                <td><c:out value="${i.point.y}"/></td>
+                <td><c:out value="${i.radius}"/></td>
+                <td>
+                    <c:if test="${i.result}">Точка входит в область</c:if>
+                    <c:if test="${!i.result}">Точка не входит в область</c:if>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 </div>

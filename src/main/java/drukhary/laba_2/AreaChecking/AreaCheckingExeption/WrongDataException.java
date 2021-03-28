@@ -1,4 +1,4 @@
-package com.drukhary.laba_2.AreaChecking.AreaCheckingExeption;
+package drukhary.laba_2.AreaChecking.AreaCheckingExeption;
 
 public class WrongDataException extends Exception {
     public WrongDataException(String message) {

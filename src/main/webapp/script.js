@@ -4,7 +4,6 @@ function clear_graph() {
 }
 
 function draw_graph(radius) {
-    let edge = 0;
     let origin = 0;
     border = canvas.width;
     let center = (origin + border) / 2;
@@ -197,11 +196,19 @@ function FormCheckPoints() {
             method: 'POST',
             body: formData
         })
-            .then(response => response.text())
+            .then(response => {
+                if (response.status !== 405)
+                    return response.text();
+                return "405"
+            })
             .then(result => {
-                $(".result")[0].innerHTML = result;
-                add_point(canvas.width / 2 + parseFloat(X) / 6.25 * (canvas.width / 2),
-                    canvas.height / 2 - parseFloat(Y) / 6.25 * (canvas.height / 2));
+                if (result === "405")
+                    $("#message")[0].innerHTML = "Неверный тип запроса(пожалуйста, примите лабу)";
+                else if (result !== "") {
+                    $(".result")[0].innerHTML = result;
+                    add_point(canvas.width / 2 + parseFloat(X) / 6.25 * (canvas.width / 2),
+                        canvas.height / 2 - parseFloat(Y) / 6.25 * (canvas.height / 2));
+                }
             });
     } else {
         errorFields.show();
@@ -220,9 +227,13 @@ function GraphCheckPoints(e) {
         body: formData
     })
         .then(response => {
-            return response.text();
+            if (response.status !== 405)
+                return response.text();
+            return "405"
         })
         .then(result => {
+            if (result === "405")
+                $("#message")[0].innerHTML = "Неверный тип запроса(пожалуйста, примите лабу)";
             if (result !== "") {
                 $(".result")[0].innerHTML = result;
                 add_point(X, Y);

@@ -1,4 +1,4 @@
-package com.drukhary.laba_2.AreaChecking;
+package drukhary.laba_2.AreaChecking;
 
 public class Point {
     Point(double x, double y) {

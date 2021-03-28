@@ -1,9 +1,10 @@
-package com.drukhary.laba_2;
+package drukhary.laba_2;
 
-import com.drukhary.laba_2.AreaChecking.AreaCheckingExeption.OutOfRangeException;
-import com.drukhary.laba_2.AreaChecking.AreaCheckingExeption.WrongDataException;
-import com.drukhary.laba_2.AreaChecking.ElementInfo;
-import com.drukhary.laba_2.AreaChecking.PointChecker;
+import drukhary.laba_2.AreaChecking.AreaCheckingExeption.OutOfRangeException;
+import drukhary.laba_2.AreaChecking.AreaCheckingExeption.WrongDataException;
+import drukhary.laba_2.AreaChecking.ElementInfo;
+import drukhary.laba_2.AreaChecking.PointChecker;
+import drukhary.laba_2.AreaChecking.Table;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +25,10 @@ public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
-        if (getServletContext().getAttribute("table") == null) {
-            getServletContext().setAttribute("table", new ArrayList<ElementInfo>());
+        synchronized (getServletContext().getAttribute("table")) {
+            if (getServletContext().getAttribute("table") == null) {
+                getServletContext().setAttribute("table", new Table());
+            }
         }
         try {
             ElementInfo elementInfo = PointChecker.CheckPoint(
@@ -33,17 +36,20 @@ public class AreaCheckServlet extends HttpServlet {
                     req.getParameter("Y").replace(",", "."),
                     req.getParameter("R").replace(",", ".")
             );
-            Object object = getServletContext().getAttribute("table");
-            ArrayList<ElementInfo> arrayList;
-            if (object != null) {
-                arrayList = (ArrayList<ElementInfo>) object;
-                arrayList.add(elementInfo);
-                req.setAttribute("message", (elementInfo.isResult() ? "Точка входит в область" : "Точка не входит в область"));
+            synchronized (getServletContext().getAttribute("table")) {
+//                Object object = getServletContext().getAttribute("table");
+//                Table table = (Table)object;
+//                ArrayList<ElementInfo> elementInfos = table.getData();
+//                elementInfos.add(elementInfo);
+
+                ((Table) getServletContext().getAttribute("table")).getData().add(elementInfo);
+                req.setAttribute("message",
+                        (elementInfo.isResult() ? "Точка входит в область" : "Точка не входит в область"));
             }
         } catch (OutOfRangeException | WrongDataException e) {
             req.setAttribute("message", e.getMessage());
         } catch (NumberFormatException e) {
-            req.setAttribute("message", "Неверный формат данных(не отчисляйте, пожалуста)");
+            req.setAttribute("message", "Неверный формат данных(примите лабу, пожалуйста)");
         }
         getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
     }
