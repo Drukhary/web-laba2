@@ -101,10 +101,11 @@
         <jsp:useBean id="table" class="drukhary.laba_2.AreaChecking.Table" scope="application"/>
         <c:forEach items="${table.data}" var="i">
             <tr>
-                <td><c:out value="${i.data}"/></td>
+                <td><c:out value="${i.data.toString()}"/></td>
                 <td>
                     <c:set var="prosessTime" value="${i.processTime}" scope="page"/>
-                    <%= java.math.BigDecimal.valueOf((double) pageContext.findAttribute("i")).toPlainString() + "HY" %>
+                    <%= java.math.BigDecimal.valueOf((Double) pageContext.findAttribute("prosessTime")).toPlainString() %>
+                    с
                     <c:remove var="prosessTime" scope="page"/>
                 </td>
                 <td><c:out value="${i.point.x}"/></td>
