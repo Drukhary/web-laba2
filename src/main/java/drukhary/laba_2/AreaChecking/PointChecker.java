@@ -21,7 +21,6 @@ public class PointChecker {
             throw new WrongDataException("R не найден" + "(примите лабу, пожалуйста)");
         double x = Double.parseDouble(x_0);
         double y = Double.parseDouble(y_0);
-//        double r = Double.parseDouble(r_0);
         int r = Integer.parseInt(r_0);
 //        if (!(
 //                ((Double.toString(x).length() >= x_0.length()))
@@ -43,7 +42,7 @@ public class PointChecker {
         ElementInfo elementInfo = new ElementInfo();
         elementInfo.setRadius((double) r);
         elementInfo.setPoint(point);
-        elementInfo.setData(LocalDateTime.now());
+        elementInfo.setDate(LocalDateTime.now());
         elementInfo.setResult(AreaCheckCondition(point, elementInfo.getRadius()));
         elementInfo.setProcessTime((System.nanoTime() - start) * 1.0 / 1000000000);
         return elementInfo;

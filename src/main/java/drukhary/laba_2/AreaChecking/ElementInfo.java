@@ -12,11 +12,11 @@ public class ElementInfo implements Serializable {
     private Point point;
     private Double radius;
     private boolean result;
-    private LocalDateTime data;
+    private LocalDateTime date;
     private double processTime;
 
-    public void setData(LocalDateTime data) {
-        this.data = data;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public void setPoint(Point point) {
@@ -35,8 +35,12 @@ public class ElementInfo implements Serializable {
         this.result = result;
     }
 
-    public LocalDateTime getData() {
-        return data;
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public String getFormatDate() {
+        return date.toString();
     }
 
     public double getProcessTime() {
@@ -53,5 +57,13 @@ public class ElementInfo implements Serializable {
 
     public boolean isResult() {
         return result;
+    }
+
+    public String getFormatResult() {
+        return this.result ? "Точка входит в область" : "Точка не входит в область";
+    }
+
+    public String getFormatProcessTime() {
+        return java.math.BigDecimal.valueOf(this.processTime).toPlainString() + "c";
     }
 }

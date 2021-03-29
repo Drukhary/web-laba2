@@ -101,20 +101,12 @@
         <jsp:useBean id="table" class="drukhary.laba_2.AreaChecking.Table" scope="application"/>
         <c:forEach items="${table.data}" var="i">
             <tr>
-                <td><c:out value="${i.data.toString()}"/></td>
-                <td>
-                    <c:set var="prosessTime" value="${i.processTime}" scope="page"/>
-                    <%= java.math.BigDecimal.valueOf((Double) pageContext.findAttribute("prosessTime")).toPlainString() %>
-                    с
-                    <c:remove var="prosessTime" scope="page"/>
-                </td>
-                <td><c:out value="${i.point.x}"/></td>
-                <td><c:out value="${i.point.y}"/></td>
-                <td><c:out value="${i.radius}"/></td>
-                <td>
-                    <c:if test="${i.result}">Точка входит в область</c:if>
-                    <c:if test="${!i.result}">Точка не входит в область</c:if>
-                </td>
+                <td>${i.formatDate}</td>
+                <td>${i.formatProcessTime}</td>
+                <td>${i.point.x}</td>
+                <td>${i.point.y}</td>
+                <td>${i.radius}</td>
+                <td>${i.formatResult}</td>
             </tr>
         </c:forEach>
         </tbody>
