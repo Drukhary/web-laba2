@@ -1,10 +1,9 @@
-package drukhary.laba_2.AreaChecking;
+package drukhary.laba_2.AreaCheckingModel;
 
-//import AreaChecking.AreaCheckingExeption.OutOfRangeException;
-//import AreaChecking.AreaCheckingExeption.WrongDataException;
-
-import drukhary.laba_2.AreaChecking.AreaCheckingExeption.OutOfRangeException;
-import drukhary.laba_2.AreaChecking.AreaCheckingExeption.WrongDataException;
+import drukhary.laba_2.AreaCheckingModel.AreaCheckingExeption.OutOfRangeException;
+import drukhary.laba_2.AreaCheckingModel.AreaCheckingExeption.WrongDataException;
+import drukhary.laba_2.AreaCheckingModel.Beans.ElementInfo;
+import drukhary.laba_2.AreaCheckingModel.Beans.Point;
 
 import java.time.LocalDateTime;
 
@@ -22,16 +21,6 @@ public class PointChecker {
         double x = Double.parseDouble(x_0);
         double y = Double.parseDouble(y_0);
         int r = Integer.parseInt(r_0);
-//        if (!(
-//                ((Double.toString(x).length() >= x_0.length()))
-//                        && (Double.toString(y).length() >= y_0.length())
-//                        && (Integer.toString(r).length() >= r_0.length())
-//                        && ((x >= -6.25 && x <= 6.25)
-//                        && (y >= -6.25 && y <= 6.25)
-//                        && (r >= 1 && r <= 5))
-//        )) {
-//            throw new OutOfRangeException("Данные выходят из области допустимых значений");
-//        }
         if (!(r >= 1 && r <= 5))
             throw new OutOfRangeException("Радиус выходит из области допустимых значений[1,2,3,4,5]");
         if (!(y >= -6.25 && y <= 6.25))

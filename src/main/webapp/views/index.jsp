@@ -12,7 +12,8 @@
     <title>Лабораторная работа №2 //Крисанов Роман</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style>
-        <%@include file="style.css"%>
+        <%@include file="../resources/css/style.css"%>
+        <%@include file="../resources/css/table.css"%>
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 </head>
@@ -86,7 +87,7 @@
         <h2>
         </h2>
     </div>
-    <table class="table">
+    <table>
         <thead>
         <tr>
             <th>Дата и время запроса</th>
@@ -98,7 +99,7 @@
         </tr>
         </thead>
         <tbody>
-        <jsp:useBean id="table" class="drukhary.laba_2.AreaChecking.Table" scope="application"/>
+        <jsp:useBean id="table" class="drukhary.laba_2.AreaCheckingModel.Beans.Table" scope="application"/>
         <c:forEach items="${table.data}" var="i">
             <tr>
                 <td>${i.formatDate}</td>
@@ -112,11 +113,8 @@
         </tbody>
     </table>
 </div>
-<div>
-    <p style="display: none" id="ToCompare">Точка входит в область</p>
-</div>
 <script>
-    <%@include file="script.js"%>
+    <%@include file="../resources/js/script.js"%>
 </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
-package drukhary.laba_2.AreaChecking;
+package drukhary.laba_2.AreaCheckingModel.Beans;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ public class Table implements Serializable {
     private ArrayList<ElementInfo> data;
 
     public Table() {
-        data = new ArrayList<>();
+        data = new ArrayList<ElementInfo>();
     }
 
     public ArrayList<ElementInfo> getData() {

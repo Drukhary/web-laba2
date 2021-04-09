@@ -12,7 +12,7 @@
         <%= request.getAttribute("message") != null ? request.getAttribute("message") : ""%>
     </h2>
 </div>
-<table class="table">
+<table>
     <thead>
     <tr>
         <th>Дата и время запроса</th>
@@ -24,7 +24,7 @@
     </tr>
     </thead>
     <tbody>
-    <jsp:useBean id="table" class="drukhary.laba_2.AreaChecking.Table" scope="application"/>
+    <jsp:useBean id="table" class="drukhary.laba_2.AreaCheckingModel.Beans.Table" scope="application"/>
     <c:forEach items="${table.data}" var="i">
         <tr>
             <td>${i.formatDate}</td>

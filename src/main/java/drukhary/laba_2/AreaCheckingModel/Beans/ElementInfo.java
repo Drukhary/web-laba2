@@ -1,4 +1,4 @@
-package drukhary.laba_2.AreaChecking;
+package drukhary.laba_2.AreaCheckingModel.Beans;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

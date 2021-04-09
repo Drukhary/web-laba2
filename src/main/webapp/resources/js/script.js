@@ -1,3 +1,41 @@
+
+function onlyDigits() {
+    this.value = this.value.replace(/[^\d\,\-]/g, "");//разрешаем ввод только цифр 0-9, запятой и минуса
+
+    if (this.value.lastIndexOf("-") > 0) {//если пользователь вводит тире (минус) не самым первым символом...
+        this.value = this.value.substr(0, this.value.lastIndexOf("-"));//то удаляем этот минус
+    }
+
+    if (this.value[0] === "-") {//если первый символ это минус (число отрицательно)...
+        if (new Set().add("6").add("7").add("8").add("9").has(this.value[1]))
+            this.value = this.value.substr(0, 1);
+        if (this.value[1] === "5" && this.value[2] !== "") {
+            this.value = this.value.substr(0, 2);//то запрещаем вводить число больше 0
+        }
+        if (this.value.length > 2 && this.value[2] !== ",") this.value = this.value[0] + this.value[1] + "," + this.value[2];//если третий символ введён и он не запятая, то вставляем запятую между вторым и третим символом
+        if (this.value.length > 8) this.value = this.value.substr(0, 8);//если количество символов равно 8 (5 знаков после запятой), не даём вводить больше
+    } else {//если число положительно (первым введён не минус, а цифра)...
+        if (new Set().add("4").add("5").add("6").add("7").add("8").add("9").has(this.value[0])) {
+            this.value = this.value.substr(0, 0)//то эта цифра должна быть от 0 до 5
+        }
+        if (this.value[0] === "3" && this.value[1] !== "") {
+            this.value = this.value.substr(0, 1);//то эта цифра должна быть от 0 до 5
+        }
+
+        if (this.value.length > 1 && this.value[1] !== ",") this.value = this.value[0] + "," + this.value[1];//если второй символ введён и он не запятая, то вставляем запятую между первым и вторым символом
+        if (this.value.length > 7) this.value = this.value.substr(0, 7);//если количество символов равно 7 (5 знаков после запятой), не даём вводить больше
+    }
+
+    if (this.value.match(/,/g) !== null && this.value.match(/,/g).length > 1) {//не даём ввести больше одной запятой
+        this.value = this.value.substr(0, this.value.lastIndexOf(","));
+    }
+    if (parseFloat(this.value))
+
+        if (this.value.match(/-/g) && this.value.match(/-/g).length > 1) {//не даём ввести больше одного минуса
+            this.value = this.value.substr(0, this.value.lastIndexOf("-"));
+        }
+}
+
 function clear_graph() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx_points.clearRect(0, 0, canvas.width, canvas.height);
@@ -5,7 +43,7 @@ function clear_graph() {
 
 function draw_graph(radius) {
     let origin = 0;
-    border = canvas.width;
+    let border = canvas.width;
     let center = (origin + border) / 2;
     let arrow = border / 50;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -62,7 +100,6 @@ function draw_graph(radius) {
     ctx.stroke(); // triangle
 }
 
-// Указываем элемент для 2D рисования
 function add_point(x, y) {
     ctx_points.beginPath();
     ctx_points.arc(x, y, 3, 0, 2 * Math.PI, false);
@@ -71,43 +108,6 @@ function add_point(x, y) {
     ctx_points.fill();
     ctx_points.lineWidth = 1;
     ctx_points.stroke();
-}
-
-function onlyDigits() {
-    this.value = this.value.replace(/[^\d\,\-]/g, "");//разрешаем ввод только цифр 0-9, запятой и минуса
-
-    if (this.value.lastIndexOf("-") > 0) {//если пользователь вводит тире (минус) не самым первым символом...
-        this.value = this.value.substr(0, this.value.lastIndexOf("-"));//то удаляем этот минус
-    }
-
-    if (this.value[0] === "-") {//если первый символ это минус (число отрицательно)...
-        if (new Set().add("6").add("7").add("8").add("9").has(this.value[1]))
-            this.value = this.value.substr(0, 1);
-        if (this.value[1] === "5" && this.value[2] !== "") {
-            this.value = this.value.substr(0, 2);//то запрещаем вводить число больше 0
-        }
-        if (this.value.length > 2 && this.value[2] !== ",") this.value = this.value[0] + this.value[1] + "," + this.value[2];//если третий символ введён и он не запятая, то вставляем запятую между вторым и третим символом
-        if (this.value.length > 8) this.value = this.value.substr(0, 8);//если количество символов равно 8 (5 знаков после запятой), не даём вводить больше
-    } else {//если число положительно (первым введён не минус, а цифра)...
-        if (new Set().add("4").add("5").add("6").add("7").add("8").add("9").has(this.value[0])) {
-            this.value = this.value.substr(0, 0)//то эта цифра должна быть от 0 до 5
-        }
-        if (this.value[0] === "3" && this.value[1] !== "") {
-            this.value = this.value.substr(0, 1);//то эта цифра должна быть от 0 до 5
-        }
-
-        if (this.value.length > 1 && this.value[1] !== ",") this.value = this.value[0] + "," + this.value[1];//если второй символ введён и он не запятая, то вставляем запятую между первым и вторым символом
-        if (this.value.length > 7) this.value = this.value.substr(0, 7);//если количество символов равно 7 (5 знаков после запятой), не даём вводить больше
-    }
-
-    if (this.value.match(/,/g) !== null && this.value.match(/,/g).length > 1) {//не даём ввести больше одной запятой
-        this.value = this.value.substr(0, this.value.lastIndexOf(","));
-    }
-    if (parseFloat(this.value))
-
-        if (this.value.match(/-/g) && this.value.match(/-/g).length > 1) {//не даём ввести больше одного минуса
-            this.value = this.value.substr(0, this.value.lastIndexOf("-"));
-        }
 }
 
 let canvas = $("#canvas")[0];
@@ -127,7 +127,9 @@ function cnvs_clearCoordinates() {
 let xy_coordinates_show = document.getElementById("xycoordinates");
 let ctx = canvas.getContext('2d');
 let ctx_points = canvas.getContext('2d');
-//здесь мы выводим выбранное значени R
+
+// import {clear_graph,draw_graph,add_point,cnvs_getCoordinates,cnvs_clearCoordinates,
+//     canvas,xy_coordinates_show,ctx,ctx_points} from './graph';
 let errorFields = $("#errorFields");
 let imageR = $("#image_R");
 let imageX = $("#image_X");
@@ -152,8 +154,7 @@ $(".setR").click(function () {
     for (let i = 0; i < coordinate.length / 6; i++) {
         add_point(
             canvas.width / 2 + parseFloat(coordinate[i * 6 + 2].innerText) / 6.25 * (canvas.width / 2),
-            canvas.height / 2 - parseFloat(coordinate[i * 6 + 3].innerText) / 6.25 * (canvas.height / 2),
-            coordinate[i * 6 + 2].innerText === $("#ToCompare")[0].innerHTML
+            canvas.height / 2 - parseFloat(coordinate[i * 6 + 3].innerText) / 6.25 * (canvas.height / 2)
         );
     } // drawing every points on the graph
 });
@@ -188,7 +189,7 @@ function FormCheckPoints() {
     let X = selectedX.html();
     let Y = coordinateY.value.replace(",", ".");
     if (validate(R, X, Y)) {
-        formData = new FormData();
+        let formData = new FormData();
         formData.set('R', R);
         formData.set('X', X);
         formData.set('Y', Y);
@@ -197,14 +198,10 @@ function FormCheckPoints() {
             body: formData
         })
             .then(response => {
-                if (response.status !== 405)
-                    return response.text();
-                return "405"
+                return response.text();
             })
             .then(result => {
-                if (result === "405")
-                    $("#message")[0].innerHTML = "Неверный тип запроса(пожалуйста, примите лабу)";
-                else if (result !== "") {
+                if (result !== "") {
                     $(".result")[0].innerHTML = result;
                     add_point(canvas.width / 2 + parseFloat(X) / 6.25 * (canvas.width / 2),
                         canvas.height / 2 - parseFloat(Y) / 6.25 * (canvas.height / 2));
@@ -218,7 +215,7 @@ function FormCheckPoints() {
 function GraphCheckPoints(e) {
     let X = e.pageX - e.target.offsetLeft;
     let Y = e.pageY - e.target.offsetTop;
-    formData = new FormData();
+    let formData = new FormData();
     formData.set('R', selectedR.html());
     formData.set('X', ((2 * X - canvas.width) / (canvas.width) * 25 / 4).toFixed(6));
     formData.set('Y', ((canvas.height - 2 * Y) / (canvas.height) * 25 / 4).toFixed(6));
@@ -227,13 +224,9 @@ function GraphCheckPoints(e) {
         body: formData
     })
         .then(response => {
-            if (response.status !== 405)
-                return response.text();
-            return "405"
+            return response.text();
         })
         .then(result => {
-            if (result === "405")
-                $("#message")[0].innerHTML = "Неверный тип запроса(пожалуйста, примите лабу)";
             if (result !== "") {
                 $(".result")[0].innerHTML = result;
                 add_point(X, Y);

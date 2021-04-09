@@ -1,25 +1,24 @@
 package drukhary.laba_2;
 
-import drukhary.laba_2.AreaChecking.AreaCheckingExeption.OutOfRangeException;
-import drukhary.laba_2.AreaChecking.AreaCheckingExeption.WrongDataException;
-import drukhary.laba_2.AreaChecking.ElementInfo;
-import drukhary.laba_2.AreaChecking.PointChecker;
-import drukhary.laba_2.AreaChecking.Table;
+import drukhary.laba_2.AreaCheckingModel.AreaCheckingExeption.OutOfRangeException;
+import drukhary.laba_2.AreaCheckingModel.AreaCheckingExeption.WrongDataException;
+import drukhary.laba_2.AreaCheckingModel.Beans.ElementInfo;
+import drukhary.laba_2.AreaCheckingModel.PointChecker;
+import drukhary.laba_2.AreaCheckingModel.Beans.Table;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
-@WebServlet("/AreaCheck")
+@MultipartConfig
 public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
-        getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/views/index.jsp").forward(req, resp);
     }
 
     @Override
@@ -37,12 +36,8 @@ public class AreaCheckServlet extends HttpServlet {
                     req.getParameter("R").replace(",", ".")
             );
             synchronized (getServletContext().getAttribute("table")) {
-//                Object object = getServletContext().getAttribute("table");
-//                Table table = (Table)object;
-//                ArrayList<ElementInfo> elementInfos = table.getData();
-//                elementInfos.add(elementInfo);
-
                 ((Table) getServletContext().getAttribute("table")).getData().add(elementInfo);
+
                 req.setAttribute("message",
                         (elementInfo.isResult() ? "Точка входит в область" : "Точка не входит в область"));
             }
@@ -51,6 +46,6 @@ public class AreaCheckServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             req.setAttribute("message", "Неверный формат данных(примите лабу, пожалуйста)");
         }
-        getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/views/result.jsp").forward(req, resp);
     }
 }

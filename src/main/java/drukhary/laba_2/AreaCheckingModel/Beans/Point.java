@@ -1,7 +1,10 @@
-package drukhary.laba_2.AreaChecking;
+package drukhary.laba_2.AreaCheckingModel.Beans;
 
 public class Point {
-    Point(double x, double y) {
+    public Point() {
+    }
+
+    public Point(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -15,6 +18,14 @@ public class Point {
 
     public double getY() {
         return y;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 
     @Override
