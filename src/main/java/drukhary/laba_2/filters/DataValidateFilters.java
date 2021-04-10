@@ -1,5 +1,7 @@
 package drukhary.laba_2.filters;
 
+import drukhary.laba_2.AreaCheckingModel.AreaCheckingExeption.WrongDataException;
+
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -43,16 +45,16 @@ public class DataValidateFilters implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
-        if (((HttpServletRequest) request).getMethod().equals("POST")) {
-            if (IsParameterExist(req.getPart("R"))
+        try {
+            if (((HttpServletRequest) request).getMethod().equals("POST")
+                    && !(IsParameterExist(req.getPart("R"))
                     && IsParameterExist(req.getPart("X"))
-                    && IsParameterExist(req.getPart("Y")))
-                chain.doFilter(request, response);
-            else {
-                req.setAttribute("message", "Некорректный запрос");
-                filterConfig.getServletContext().getRequestDispatcher("/views/result.jsp").forward(request, response);
-            }
-        } else
+                    && IsParameterExist(req.getPart("Y"))))
+                throw new WrongDataException("Некорректный запрос");
             chain.doFilter(request, response);
+        } catch (Exception e) {
+            req.setAttribute("message", "Некорректный запрос");
+            filterConfig.getServletContext().getRequestDispatcher("/views/result.jsp").forward(request, response);
+        }
     }
 }

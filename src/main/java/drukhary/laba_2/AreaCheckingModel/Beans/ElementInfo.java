@@ -2,6 +2,7 @@ package drukhary.laba_2.AreaCheckingModel.Beans;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ElementInfo implements Serializable {
     private static final long serialVersionUID = 2041275512219239990L;
@@ -40,7 +41,7 @@ public class ElementInfo implements Serializable {
     }
 
     public String getFormatDate() {
-        return date.toString();
+        return date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd - HH:mm:ss"));
     }
 
     public double getProcessTime() {

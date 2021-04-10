@@ -44,7 +44,7 @@ public class AreaCheckServlet extends HttpServlet {
         } catch (OutOfRangeException | WrongDataException e) {
             req.setAttribute("message", e.getMessage());
         } catch (NumberFormatException e) {
-            req.setAttribute("message", "Неверный формат данных(примите лабу, пожалуйста)");
+            req.setAttribute("message", "Неверный формат данных");
         }
         getServletContext().getRequestDispatcher("/views/result.jsp").forward(req, resp);
     }
